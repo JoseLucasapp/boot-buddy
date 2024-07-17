@@ -1,11 +1,6 @@
-from InquirerPy import prompt
-from src.utils import generateSelect
+from src.prompt_messages import Prompt_messages
+if __name__ == "__main__":
+    prompt_messages = Prompt_messages()
+    stack_selection = prompt_messages.stack()
 
-questions = []
-programs = generateSelect.Generate_select(
-    'list', 'Quais programas você prefere ?', 'programs', ['Chrome', 'Paint', 'VSCode'])
-
-questions.append(programs.generate())
-
-answers = prompt(questions)
-print(f'Você escolheu {answers['programs']}')
+    print(f'Selected stack: {stack_selection}')
