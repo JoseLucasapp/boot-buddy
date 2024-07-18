@@ -9,10 +9,16 @@ config = load_dotenv(".env")
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DB_URI')
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+db.init_app(app=app)
 
 if __name__ == "__main__":
-    db.init_app(app=app)
-    with app.test_request_context():
+    with app.app_context():
         db.create_all()
-    prompt_messages = Prompt_messages()
-    stack_selection = prompt_messages.caller()
+        prompt_messages = Prompt_messages()
+
+        try:
+            prompt_messages.stack()
+        except Exception as e:
+            print(f"Erro: {e}")
