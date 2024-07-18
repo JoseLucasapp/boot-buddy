@@ -1,7 +1,7 @@
 from database.database import db
 
 
-class Access_pattern_model:
+class Access_pattern(db.Model):
     id = db.Column('id', db.BigInteger, primary_key=True, autoincrement=True)
     name = db.Column('name', db.String)
     description = db.Column('description', db.String)

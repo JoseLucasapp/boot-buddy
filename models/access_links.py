@@ -1,7 +1,7 @@
 from database.database import db
 
 
-class Access_links_model:
+class Access_links(db.Model):
     id = db.Column('id', db.BigInteger, primary_key=True, autoincrement=True)
     link = db.Column('link', db.String)
     link_name = db.Column('link_name', db.String)
