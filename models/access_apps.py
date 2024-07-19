@@ -1,13 +1,16 @@
 from database.database import db
+from json import dumps
+from sqlalchemy import text
 
 
 class Access_apps(db.Model):
-    id = db.Column('id', db.BigInteger, primary_key=True, autoincrement=True)
+    __tablename__ = 'access_apps'
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column('name', db.String)
     path = db.Column('path', db.String)
-    is_browser = db.Column('is_browser', db.Boolean)
+    is_browser = db.Column('is_browser', db.Integer)
     access_patterns_id = db.Column(
-        'access_patterns_id', db.BigInteger, db.ForeignKey('access_patterns.id'))
+        'access_patterns_id', db.Integer, db.ForeignKey('access_pattern.id'))
 
     def __init__(self, name, access_patterns_id, path, is_browser):
         self.name = name
@@ -22,8 +25,14 @@ class Access_apps(db.Model):
             return {"col": getattr(self, col) for col in columns}
 
     def add(self):
+        print(self)
         access_app = Access_apps(
             name=self.name, access_patterns_id=self.access_patterns_id, path=self.path, is_browser=self.is_browser)
         db.session.add(access_app)
         db.session.commit()
         return access_app
+
+    def get(self):
+        result = db.session.execute(
+            text('SELECT * FROM access_apps')).fetchall()
+        return dumps([dict(row._mapping) for row in result])
