@@ -5,7 +5,10 @@ from sqlalchemy import text
 
 class Access_pattern(db.Model):
     __tablename__ = 'access_pattern'
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    id = db.Column(db.Integer,
+                   primary_key=True,
+                   autoincrement=True)
+
     name = db.Column('name', db.String)
     description = db.Column('description', db.String)
 
@@ -15,13 +18,17 @@ class Access_pattern(db.Model):
 
     def to_dict(self, columns=[]):
         if not columns:
-            return {"id": self.id, "name": self.name, "description": self.description}
+            return {"id": self.id,
+                    "name": self.name,
+                    "description": self.description}
         else:
             return {"col": getattr(self, col) for col in columns}
 
     def add(self):
         access_pattern = Access_pattern(
-            name=self.name, description=self.description)
+            name=self.name,
+            description=self.description)
+
         db.session.add(access_pattern)
         db.session.commit()
         return access_pattern

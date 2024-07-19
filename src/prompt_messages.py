@@ -39,6 +39,7 @@ class Prompt_messages:
                                       access_patterns_id=access_pattern_id,
                                       path=access_apps_prompt['app_path'],
                                       is_browser=access_apps_prompt['is_browser'])
+
             with current_app.app_context():
                 access_apps_data = access_apps.add()
                 print(access_apps.get())
@@ -98,7 +99,9 @@ class Prompt_messages:
 
         stack_prompt = prompt(add_new_stack_prompt)
         access_pattern_db = Access_pattern(
-            stack_prompt['stack_name'], stack_prompt['stack_description'])
+            stack_prompt['stack_name'],
+            stack_prompt['stack_description']
+        )
 
         with current_app.app_context():
             data = access_pattern_db.add()
