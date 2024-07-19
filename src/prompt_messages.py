@@ -4,6 +4,7 @@ from flask import current_app
 
 from models.access_pattern import Access_pattern
 from models.access_apps import Access_apps
+from models.access_links import Access_links
 
 
 class Prompt_messages:
@@ -32,30 +33,40 @@ class Prompt_messages:
                 }
             ]
 
+            print(' ')
             access_apps_prompt = prompt(add_new_app)
             access_apps = Access_apps(name=access_apps_prompt['app_name'],
                                       access_patterns_id=access_pattern_id,
                                       path=access_apps_prompt['app_path'],
                                       is_browser=access_apps_prompt['is_browser'])
-
             with current_app.app_context():
-                data = access_apps.add()
+                access_apps_data = access_apps.add()
+                print(access_apps.get())
 
-            if access_apps_prompt['is_browser']:
-                add_new_app_link = [
-                    {
-                        "type": "input",
-                        "message": "What is the name of the link?",
-                        "name": "link_name",
-                    },
-                    {
-                        "type": "input",
-                        "message": "What is the link?",
-                        "name": "link_url",
-                    }
-                ]
+                if access_apps_prompt['is_browser']:
+                    add_new_app_link = [
+                        {
+                            "type": "input",
+                            "message": "What is the name of the link?",
+                            "name": "link_name",
+                        },
+                        {
+                            "type": "input",
+                            "message": "What is the link?",
+                            "name": "link_url",
+                        }
+                    ]
 
-                add_new_app_link_prompt = prompt(add_new_app_link)
+                    print(access_apps_data)
+                    print(' ')
+                    add_new_app_link_prompt = prompt(add_new_app_link)
+                    access_links = Access_links(link=add_new_app_link_prompt['link_url'],
+                                                link_name=add_new_app_link_prompt['link_name'],
+                                                access_apps_id=access_apps_data.id)
+
+                    with current_app.app_context():
+                        access_links.add()
+                        print(access_links.get())
 
             add_next_app = [
                 {
