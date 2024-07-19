@@ -20,3 +20,10 @@ class Access_apps(db.Model):
             return {"id": self.id, "name": self.name, "path": self.path, "access_patterns_id": self.access_patterns_id, "is_browser": self.is_browser}
         else:
             return {"col": getattr(self, col) for col in columns}
+
+    def add(self):
+        access_app = Access_apps(
+            name=self.name, access_patterns_id=self.access_patterns_id, path=self.path, is_browser=self.is_browser)
+        db.session.add(access_app)
+        db.session.commit()
+        return access_app
