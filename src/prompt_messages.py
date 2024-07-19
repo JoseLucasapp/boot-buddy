@@ -3,6 +3,7 @@ from InquirerPy import prompt
 from flask import current_app
 
 from models.access_pattern import Access_pattern
+from models.access_apps import Access_apps
 
 
 class Prompt_messages:
@@ -10,7 +11,7 @@ class Prompt_messages:
     def __init__(self) -> None:
         self.selected_stack = ''
 
-    def access_apps(self):
+    def access_apps(self, access_pattern_id):
         while True:
             add_new_app = [
                 {
@@ -32,6 +33,13 @@ class Prompt_messages:
             ]
 
             access_apps_prompt = prompt(add_new_app)
+            access_apps = Access_apps(name=access_apps_prompt['app_name'],
+                                      access_patterns_id=access_pattern_id,
+                                      path=access_apps_prompt['app_path'],
+                                      is_browser=access_apps_prompt['is_browser'])
+
+            with current_app.app_context():
+                data = access_apps.add()
 
             if access_apps_prompt['is_browser']:
                 add_new_app_link = [
@@ -82,7 +90,8 @@ class Prompt_messages:
             stack_prompt['stack_name'], stack_prompt['stack_description'])
 
         with current_app.app_context():
-            access_pattern_db.add()
+            data = access_pattern_db.add()
+            self.access_apps(data.id)
 
     def stack(self):
         default = [
@@ -97,5 +106,4 @@ class Prompt_messages:
         self.selected_stack = prompt(default)
 
         if self.selected_stack['stack'] == 'Or add new stack':
-            # self.add_new_stack()
-            self.access_apps()
+            self.add_new_stack()
