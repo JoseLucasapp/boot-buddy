@@ -24,6 +24,7 @@ class Access_pattern(db.Model):
             name=self.name, description=self.description)
         db.session.add(access_pattern)
         db.session.commit()
+        return access_pattern
 
     def get(self):
         result = db.session.execute(
