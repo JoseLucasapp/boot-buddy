@@ -29,3 +29,9 @@ class Access_links(db.Model):
         result = db.session.execute(
             text('SELECT * FROM access_links')).fetchall()
         return [dict(row._mapping) for row in result]
+
+    def get_by_app_id(app_id):
+        result = db.session.execute(text(
+            f"SELECT * FROM access_links WHERE access_apps_id = '{app_id}'")).fetchall()
+
+        return [dict(row._mapping) for row in result]
