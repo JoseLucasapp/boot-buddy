@@ -61,12 +61,13 @@ class Prompt_messages:
             }
         ])
 
-    def add_next_app():
+    def add_next(next):
+        message = f'Do you want to add other {next}?'
         return prompt([
             {
                 "type": 'confirm',
-                "message": 'Do you want to add other app?',
-                "name": 'next_app',
+                "message": message,
+                "name": 'next',
                 "default": False,
             }
         ])

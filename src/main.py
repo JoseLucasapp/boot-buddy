@@ -15,6 +15,20 @@ class Booty_buddy:
         self.access_links_model = Access_links
         self.access_patterns_model = Access_pattern
 
+    def add_link(self, access_apps_data):
+        while True:
+            add_new_app_link_prompt = self.prompt_messages.add_new_app_link()
+
+            with current_app.app_context():
+                self.access_links_model.add(link=add_new_app_link_prompt['link_url'],
+                                            link_name=add_new_app_link_prompt['link_name'],
+                                            access_apps_id=access_apps_data.id)
+
+            add_next_prompt = self.prompt_messages.add_next('link')
+
+            if add_next_prompt['next'] == False:
+                break
+
     def add_apps(self, access_pattern_id):
         while True:
             access_apps_prompt = self.prompt_messages.add_new_app_message()
@@ -26,16 +40,11 @@ class Booty_buddy:
                                                               is_browser=access_apps_prompt['is_browser'])
 
                 if access_apps_prompt['is_browser']:
-                    add_new_app_link_prompt = self.prompt_messages.add_new_app_link()
+                    self.add_link(access_apps_data)
 
-                    with current_app.app_context():
-                        self.access_links_model.add(link=add_new_app_link_prompt['link_url'],
-                                                    link_name=add_new_app_link_prompt['link_name'],
-                                                    access_apps_id=access_apps_data.id)
+            add_next_prompt = self.prompt_messages.add_next('app')
 
-            add_next_app_prompt = self.prompt_messages.add_next_app()
-
-            if add_next_app_prompt['next_app'] == False:
+            if add_next_prompt['next'] == False:
                 break
 
     def add_stack(self):
