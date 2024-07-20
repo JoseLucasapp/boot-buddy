@@ -35,14 +35,13 @@ class Prompt_messages:
 
             print(' ')
             access_apps_prompt = prompt(add_new_app)
-            access_apps = Access_apps(name=access_apps_prompt['app_name'],
-                                      access_patterns_id=access_pattern_id,
-                                      path=access_apps_prompt['app_path'],
-                                      is_browser=access_apps_prompt['is_browser'])
+            access_apps = Access_apps
 
             with current_app.app_context():
-                access_apps_data = access_apps.add()
-                print(access_apps.get())
+                access_apps_data = access_apps.add(name=access_apps_prompt['app_name'],
+                                                   access_patterns_id=access_pattern_id,
+                                                   path=access_apps_prompt['app_path'],
+                                                   is_browser=access_apps_prompt['is_browser'])
 
                 if access_apps_prompt['is_browser']:
                     add_new_app_link = [
@@ -58,16 +57,14 @@ class Prompt_messages:
                         }
                     ]
 
-                    print(access_apps_data)
                     print(' ')
                     add_new_app_link_prompt = prompt(add_new_app_link)
-                    access_links = Access_links(link=add_new_app_link_prompt['link_url'],
-                                                link_name=add_new_app_link_prompt['link_name'],
-                                                access_apps_id=access_apps_data.id)
+                    access_links = Access_links
 
                     with current_app.app_context():
-                        access_links.add()
-                        print(access_links.get())
+                        access_links.add(link=add_new_app_link_prompt['link_url'],
+                                         link_name=add_new_app_link_prompt['link_name'],
+                                         access_apps_id=access_apps_data.id)
 
             add_next_app = [
                 {
