@@ -1,17 +1,20 @@
+from InquirerPy import prompt
+
+
 class Prompt_messages:
 
     def stack_message(choices):
-        return [
+        return prompt([
             {
                 "type": "list",
                 "message": "Which stack you want to open:",
                 "name": "stack",
                 "choices": choices
             }
-        ]
+        ])
 
     def add_stack_message():
-        return [
+        return prompt([
             {
                 "type": "input",
                 "message": "What is the stack name?",
@@ -22,10 +25,10 @@ class Prompt_messages:
                 "message": "What is the stack description?",
                 "name": "stack_description",
             }
-        ]
+        ])
 
     def add_new_app_message():
-        return [
+        return prompt([
             {
                 "type": "input",
                 "message": "What is the name of the app?",
@@ -42,10 +45,10 @@ class Prompt_messages:
                 "name": 'is_browser',
                 "default": False,
             }
-        ]
+        ])
 
     def add_new_app_link():
-        return [
+        return prompt([
             {
                 "type": "input",
                         "message": "What is the name of the link?",
@@ -56,24 +59,24 @@ class Prompt_messages:
                         "message": "What is the link?",
                         "name": "link_url",
             }
-        ]
+        ])
 
     def add_next_app():
-        return [
+        return prompt([
             {
                 "type": 'confirm',
                 "message": 'Do you want to add other app?',
                 "name": 'next_app',
                 "default": False,
             }
-        ]
+        ])
 
     def open_stack_apps_message():
-        return [
+        return prompt([
             {
                 "type": 'confirm',
                 "message": 'Do you want to open this stack?',
                 "name": 'open_stack',
                 "default": False,
             }
-        ]
+        ])
