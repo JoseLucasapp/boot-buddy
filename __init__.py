@@ -1,4 +1,4 @@
-from src.prompt_messages import Prompt_messages
+from src.main import Booty_buddy
 from dotenv import load_dotenv
 from flask import Flask
 import os
@@ -16,7 +16,7 @@ db.init_app(app=app)
 if __name__ == "__main__":
     with app.app_context():
         db.create_all()
-        prompt_messages = Prompt_messages()
+        prompt_messages = Booty_buddy()
 
         try:
             prompt_messages.stack()
