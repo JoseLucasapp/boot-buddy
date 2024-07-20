@@ -32,3 +32,9 @@ class Access_apps(db.Model):
         result = db.session.execute(
             text('SELECT * FROM access_apps')).fetchall()
         return [dict(row._mapping) for row in result]
+
+    def get_by_pattern_id(pattern_id):
+        result = db.session.execute(text(
+            f"SELECT * FROM access_apps WHERE access_patterns_id = '{pattern_id}'")).fetchall()
+
+        return [dict(row._mapping) for row in result]
