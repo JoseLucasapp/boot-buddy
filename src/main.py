@@ -12,14 +12,12 @@ from src.prompt_messages import Prompt_messages
 class Booty_buddy:
 
     def __init__(self):
-        self.selected_stack = ''
         self.prompt_messages = Prompt_messages
 
     def access_apps(self, access_pattern_id):
         while True:
             add_new_app = self.prompt_messages.add_new_app_message()
 
-            print(' ')
             access_apps_prompt = prompt(add_new_app)
             access_apps = Access_apps
 
@@ -32,7 +30,6 @@ class Booty_buddy:
                 if access_apps_prompt['is_browser']:
                     add_new_app_link = self.prompt_messages.add_new_app_link()
 
-                    print(' ')
                     add_new_app_link_prompt = prompt(add_new_app_link)
                     access_links = Access_links
 
@@ -59,6 +56,23 @@ class Booty_buddy:
                                          stack_prompt['stack_description'])
             self.access_apps(data.id)
 
+    def select_stack(self, stack):
+        access_apps = Access_apps.get_by_pattern_id(stack['id'])
+        print(f'This is the list of apps on {stack["name"]} stack:')
+        for app in access_apps:
+            if app['is_browser']:
+                print(f'-- {app["name"]}:')
+                access_links = Access_links.get_by_app_id(app['id'])
+                for link in access_links:
+                    print(f'    > {link["link_name"]}')
+            else:
+                print(f'-- {app["name"]}')
+
+        open_stack = prompt(self.prompt_messages.open_stack_apps_message())
+
+        if open_stack['open_stack']:
+            print('Starting...')
+
     def stack(self):
         choices = []
         already_created_stacks = Access_pattern.get()
@@ -68,7 +82,11 @@ class Booty_buddy:
 
         default = self.prompt_messages.stack_message(choices=choices)
 
-        self.selected_stack = prompt(default)
+        selected_stack = prompt(default)
 
-        if self.selected_stack['stack'] == 'Add new stack':
+        if selected_stack['stack'] == 'Add new stack':
             self.add_new_stack()
+
+        for created_stack in already_created_stacks:
+            if selected_stack['stack'] == created_stack['name']:
+                self.select_stack(created_stack)
