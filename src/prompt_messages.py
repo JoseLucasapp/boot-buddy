@@ -67,3 +67,13 @@ class Prompt_messages:
                 "default": False,
             }
         ]
+
+    def open_stack_apps_message():
+        return [
+            {
+                "type": 'confirm',
+                "message": 'Do you want to open this stack?',
+                "name": 'open_stack',
+                "default": False,
+            }
+        ]
