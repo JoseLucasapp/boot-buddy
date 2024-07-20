@@ -98,26 +98,30 @@ class Prompt_messages:
         ]
 
         stack_prompt = prompt(add_new_stack_prompt)
-        access_pattern_db = Access_pattern(
-            stack_prompt['stack_name'],
-            stack_prompt['stack_description']
-        )
+        access_pattern_db = Access_pattern
 
         with current_app.app_context():
-            data = access_pattern_db.add()
+            data = access_pattern_db.add(stack_prompt['stack_name'],
+                                         stack_prompt['stack_description'])
             self.access_apps(data.id)
 
     def stack(self):
+        choices = []
+        already_created_stacks = Access_pattern.get()
+        for created_stack in already_created_stacks:
+            choices.append(created_stack['name'])
+        choices.append('Add new stack')
+
         default = [
             {
                 "type": "list",
                 "message": "Which stack you want to open:",
                 "name": "stack",
-                "choices": ["Work", "Study", "Or add new stack"]
+                "choices": choices
             }
         ]
 
         self.selected_stack = prompt(default)
 
-        if self.selected_stack['stack'] == 'Or add new stack':
+        if self.selected_stack['stack'] == 'Add new stack':
             self.add_new_stack()
