@@ -4,10 +4,10 @@ from models.access_pattern import Access_pattern
 from models.access_apps import Access_apps
 from models.access_links import Access_links
 
+from src.open_apps import Open_apps
+from src.open_links import Open_links
+
 from src.prompt_messages import Prompt_messages
-import subprocess
-import webbrowser
-import os
 
 
 class Booty_buddy:
@@ -17,24 +17,8 @@ class Booty_buddy:
         self.access_apps_model = Access_apps
         self.access_links_model = Access_links
         self.access_patterns_model = Access_pattern
-
-    def open_links(self, app_path, links):
-        for link in links:
-            try:
-                url = link.get('link', '')
-                if url:
-                    command = f'"{app_path}" {url}'
-                    os.system(command)
-                else:
-                    print("Error: No valid URL found in the link dictionary.")
-            except Exception as e:
-                print(f"Error opening {link}: {e}")
-
-    def open_app(self, app_path):
-        try:
-            os.startfile(app_path)
-        except:
-            print(f'Verify your path: {app_path}')
+        self.open_apps = Open_apps
+        self.open_links = Open_links
 
     def add_link(self, access_apps_data):
         while True:
@@ -97,7 +81,7 @@ class Booty_buddy:
                         app['id'])
                     self.open_links(app['path'], access_links)
                 else:
-                    self.open_app(app['path'])
+                    self.open_apps(app['path'])
 
     def stack(self):
         choices = []
