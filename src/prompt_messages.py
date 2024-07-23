@@ -28,6 +28,8 @@ class Prompt_messages:
         ])
 
     def add_new_app_message():
+        print(' ')
+        print('Add your app details: ')
         return prompt([
             {
                 "type": "input",
