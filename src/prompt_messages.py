@@ -70,7 +70,7 @@ class Prompt_messages:
                 "type": 'confirm',
                 "message": message,
                 "name": 'next',
-                "default": False,
+                "default": True,
             }
         ])
 
@@ -81,5 +81,15 @@ class Prompt_messages:
                 "message": 'Do you want to open this stack?',
                 "name": 'open_stack',
                 "default": False,
+            }
+        ])
+
+    def want_to_add_links():
+        return prompt([
+            {
+                "type": 'confirm',
+                "message": 'Do you want to add links to your browser?',
+                "name": 'to_add_link',
+                "default": True,
             }
         ])
