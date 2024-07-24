@@ -35,6 +35,10 @@ class Booty_buddy:
                 break
 
     def add_apps(self, access_pattern_id):
+        print(' ')
+        print('Add app(s) to your stack:')
+        print(' ')
+        print('Hint: You can use the command which <app_name> to find your app path on Linux, and where <app_name> on Windows')
         while True:
             access_apps_prompt = self.prompt_messages.add_new_app_message()
 
