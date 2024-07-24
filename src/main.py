@@ -21,18 +21,21 @@ class Booty_buddy:
         self.open_links = Open_links
 
     def add_link(self, access_apps_data):
-        while True:
-            add_new_app_link_prompt = self.prompt_messages.add_new_app_link()
+        want_to_add_links = self.prompt_messages.want_to_add_links()
 
-            with current_app.app_context():
-                self.access_links_model.add(link=add_new_app_link_prompt['link_url'],
-                                            link_name=add_new_app_link_prompt['link_name'],
-                                            access_apps_id=access_apps_data.id)
+        if want_to_add_links['to_add_link']:
+            while True:
+                add_new_app_link_prompt = self.prompt_messages.add_new_app_link()
 
-            add_next_prompt = self.prompt_messages.add_next('link')
+                with current_app.app_context():
+                    self.access_links_model.add(link=add_new_app_link_prompt['link_url'],
+                                                link_name=add_new_app_link_prompt['link_name'],
+                                                access_apps_id=access_apps_data.id)
 
-            if add_next_prompt['next'] == False:
-                break
+                add_next_prompt = self.prompt_messages.add_next('link')
+
+                if add_next_prompt['next'] == False:
+                    break
 
     def add_apps(self, access_pattern_id):
         print(' ')
