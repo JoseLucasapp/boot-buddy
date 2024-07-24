@@ -12,7 +12,7 @@ Boot Buddy is an application designed to simplify your workflow by automatically
 ## Compatibility
 
 - **Windows**: Fully compatible with Windows operating systems.
-- **Linux**: Compatibility with Linux is currently under development and will be available soon.
+- **Linux**: Fully compatible with Linux operating systems.
 
 ## Installation
 
@@ -26,7 +26,7 @@ Boot Buddy is an application designed to simplify your workflow by automatically
 1. Open your terminal or command prompt.
 2. Clone the repository using the following command:
     ```bash
-    git clone https://github.com/yourusername/boot-buddy.git
+    git clone https://github.com/joselucasapp/boot-buddy.git
     ```
 3. Navigate to the project directory:
     ```bash
@@ -41,7 +41,7 @@ Boot Buddy is an application designed to simplify your workflow by automatically
     ```
 2. Run the application:
     ```bash
-    python boot_buddy.py
+    python __init__.py
     ```
 
 ## Usage
@@ -49,9 +49,29 @@ Boot Buddy is an application designed to simplify your workflow by automatically
 1. Open a terminal or command prompt and navigate to the Boot Buddy directory.
 2. Run the application using the command:
     ```bash
-    python boot_buddy.py
+    python __init__.py
     ```
 3. Follow the on-screen instructions to add applications to the startup list and configure their settings.
+
+## Providing the Application Path
+
+When adding an application to the startup list, you will need to provide the path to the application. Here’s how to find the path on different operating systems:
+
+### Windows
+1. Open the Command Prompt.
+2. Use the where command to find the path of the application. For example:
+   ```
+   where chrome
+   ```
+    This will output the path to the Chrome executable, such as C:\Program Files\Google\Chrome\Application\chrome.exe.
+
+### Linux
+1. Open the Command Prompt.
+2. Use the which command to find the path of the application. For example:
+   ```
+   which google-chrome
+   ```
+    This will output the path to the Chrome executable, such as /usr/bin/google-chrome.
 
 ## Contributing
 
