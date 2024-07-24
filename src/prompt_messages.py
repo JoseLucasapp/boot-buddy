@@ -28,6 +28,9 @@ class Prompt_messages:
         ])
 
     def add_new_app_message():
+        example_windows_path = 'C:\Program Files\Google\Chrome\Application\chrome.exe'
+        message = f"What is the path of the app \nfor example chrome in Windows: {example_windows_path}\nchrome in Linux: /usr/bin/google-chrome)?"
+        
         return prompt([
             {
                 "type": "input",
@@ -36,7 +39,7 @@ class Prompt_messages:
             },
             {
                 "type": "input",
-                "message": "What is the path of the app ('C:\Program Files\Google\Chrome\Application\chrome.exe'), or the executable name ('notepad.exe')?",
+                "message": message,
                 "name": "app_path",
             },
             {
