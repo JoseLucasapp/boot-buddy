@@ -30,7 +30,7 @@ class Prompt_messages:
     def add_new_app_message():
         example_windows_path = 'C:\Program Files\Google\Chrome\Application\chrome.exe'
         message = f"What is the path of the app \nfor example chrome in Windows: {example_windows_path}\nchrome in Linux: /usr/bin/google-chrome)?"
-        
+
         return prompt([
             {
                 "type": "input",
@@ -91,6 +91,16 @@ class Prompt_messages:
                 "type": 'confirm',
                 "message": 'Do you want to add links to your browser?',
                 "name": 'to_add_link',
+                "default": True,
+            }
+        ])
+
+    def back_to_menu():
+        return prompt([
+            {
+                "type": 'confirm',
+                "message": 'Do you want to move back to menu?',
+                "name": 'back_to_menu',
                 "default": True,
             }
         ])
