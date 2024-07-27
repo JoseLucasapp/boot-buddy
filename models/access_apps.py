@@ -38,3 +38,9 @@ class Access_apps(db.Model):
             f"SELECT * FROM access_apps WHERE access_patterns_id = '{pattern_id}'")).fetchall()
 
         return [dict(row._mapping) for row in result]
+
+    def delete_apps_by_pattern(pattern_id):
+        db.session.execute(text(
+            f"DELETE FROM access_apps WHERE access_patterns_id = '{pattern_id}'"
+        ))
+        db.session.commit()
