@@ -62,6 +62,21 @@ class Booty_buddy:
             if add_next_prompt['next'] == False:
                 break
 
+    def delete_stack(self, pattern_id):
+        delete_stack_prompt = self.prompt_messages.delete_stack()
+
+        if delete_stack_prompt['delete_stack']:
+
+            app_ids = self.access_apps_model.get_by_pattern_id(pattern_id)
+            self.access_apps_model.delete_apps_by_pattern(pattern_id)
+            for app_id in app_ids:
+                self.access_links_model.delete_links_by_app(app_id['id'])
+
+            self.access_patterns_model.delete_pattern(pattern_id=pattern_id)
+            self.back_to_menu = True
+        else:
+            self.back_to_menu = False
+
     def add_stack(self):
         stack_prompt = self.prompt_messages.add_stack_message()
 
@@ -97,7 +112,7 @@ class Booty_buddy:
             if back_to_menu['back_to_menu']:
                 self.back_to_menu = True
             else:
-                self.back_to_menu = False
+                self.delete_stack(stack['id'])
 
     def stack(self):
         choices = []
