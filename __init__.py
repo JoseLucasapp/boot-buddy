@@ -23,6 +23,6 @@ if __name__ == "__main__":
         prompt_messages = Booty_buddy()
 
         try:
-            prompt_messages.stack()
+            prompt_messages.main()
         except Exception as e:
             print(f"Erro: {e}")
