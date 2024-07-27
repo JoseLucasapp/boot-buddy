@@ -120,11 +120,14 @@ class Booty_buddy:
         for created_stack in already_created_stacks:
             choices.append(created_stack['name'])
         choices.append('Add new stack')
+        choices.append('Quit')
 
         selected_stack = self.prompt_messages.stack_message(choices=choices)
 
         if selected_stack['stack'] == 'Add new stack':
             self.add_stack()
+        elif selected_stack['stack'] == 'Quit':
+            self.system_settings.quit_app()
 
         for created_stack in already_created_stacks:
             if selected_stack['stack'] == created_stack['name']:
