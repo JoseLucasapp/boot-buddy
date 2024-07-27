@@ -8,6 +8,7 @@ from src.open_apps import Open_apps
 from src.open_links import Open_links
 
 from src.prompt_messages import Prompt_messages
+from src.system_settings import System_settings
 
 
 class Booty_buddy:
@@ -19,6 +20,8 @@ class Booty_buddy:
         self.access_patterns_model = Access_pattern
         self.open_apps = Open_apps
         self.open_links = Open_links
+        self.system_settings = System_settings
+        self.back_to_menu = True
 
     def add_link(self, access_apps_data):
         want_to_add_links = self.prompt_messages.want_to_add_links()
@@ -80,6 +83,7 @@ class Booty_buddy:
                 print(f'-- {app["name"]}')
 
         open_stack = self.prompt_messages.open_stack_apps_message()
+        back_to_menu = self.prompt_messages.back_to_menu()
 
         if open_stack['open_stack']:
             for app in access_apps:
@@ -89,6 +93,11 @@ class Booty_buddy:
                     self.open_links(app['path'], access_links)
                 else:
                     self.open_apps(app['path'])
+        else:
+            if back_to_menu['back_to_menu']:
+                self.back_to_menu = True
+            else:
+                self.back_to_menu = False
 
     def stack(self):
         choices = []
@@ -105,3 +114,11 @@ class Booty_buddy:
         for created_stack in already_created_stacks:
             if selected_stack['stack'] == created_stack['name']:
                 self.select_stack(created_stack)
+
+    def main(self):
+        while True:
+            if self.back_to_menu:
+                self.system_settings.clear_terminal()
+                self.stack()
+            else:
+                break
