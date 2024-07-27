@@ -35,3 +35,9 @@ class Access_links(db.Model):
             f"SELECT * FROM access_links WHERE access_apps_id = '{app_id}'")).fetchall()
 
         return [dict(row._mapping) for row in result]
+
+    def delete_links_by_app(app_id):
+        db.session.execute(text(
+            f"DELETE FROM access_links WHERE access_apps_id = '{app_id}'"
+        ))
+        db.session.commit()
