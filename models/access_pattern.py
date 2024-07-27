@@ -24,3 +24,10 @@ class Access_pattern(db.Model):
         result = db.session.execute(
             text('SELECT * FROM access_pattern')).fetchall()
         return [dict(row._mapping) for row in result]
+
+    from sqlalchemy import text
+
+    def delete_pattern(pattern_id):
+        db.session.execute(text(
+            f"DELETE FROM access_pattern WHERE id = '{pattern_id}'"))
+        db.session.commit()
