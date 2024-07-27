@@ -104,3 +104,13 @@ class Prompt_messages:
                 "default": True,
             }
         ])
+
+    def delete_stack():
+        return prompt([
+            {
+                "type": 'confirm',
+                "message": 'Do you want to delete this stack?',
+                "name": 'delete_stack',
+                "default": True,
+            }
+        ])
