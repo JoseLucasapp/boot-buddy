@@ -1,7 +1,7 @@
 # Boot Buddy
 
 <h1 align="center">
-    <img src="./assets/logo.png" />
+    <img src="./assets/logo.png" width="150" />
 </h1>
 
 Boot Buddy is an application designed to simplify your workflow by automatically launching your preferred applications when your system boots up. With customizable settings and a user-friendly interface, Boot Buddy ensures that your essential applications are ready to go as soon as you log in.
