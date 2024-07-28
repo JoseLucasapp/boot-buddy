@@ -19,6 +19,7 @@ class Stack:
         self.system_settings = System_settings
         self.back_to_menu = True
         self.prints = Prints
+        self.add_apps = Apps().add_apps
 
     def delete_stack(self, pattern_id):
         delete_stack_prompt = self.prompt_messages.delete_stack()
