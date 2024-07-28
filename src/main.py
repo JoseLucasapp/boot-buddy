@@ -1,7 +1,6 @@
 from models.access_pattern import Access_pattern
 from models.access_apps import Access_apps
 from models.access_links import Access_links
-from src.open_apps import Open_apps
 from src.open_links import Open_links
 from src.prompt_messages import Prompt_messages
 from src.system_settings import System_settings
@@ -16,7 +15,6 @@ class Booty_buddy:
         self.access_apps_model = Access_apps
         self.access_links_model = Access_links
         self.access_patterns_model = Access_pattern
-        self.open_apps = Open_apps
         self.open_links = Open_links
         self.system_settings = System_settings
         self.back_to_menu = True
@@ -37,23 +35,6 @@ class Booty_buddy:
                 add_next_prompt = self.prompt_messages.add_next('link')
                 if add_next_prompt['next'] == False:
                     break
-
-    def add_apps(self, access_pattern_id):
-        self.prints.app_path_hint()
-        while True:
-            access_apps_prompt = self.prompt_messages.add_new_app_message()
-            with self.system_settings.get_current_app().app_context():
-                access_apps_data = self.access_apps_model.add(name=access_apps_prompt['app_name'],
-                                                              access_patterns_id=access_pattern_id,
-                                                              path=access_apps_prompt['app_path'],
-                                                              is_browser=access_apps_prompt['is_browser'])
-
-                if access_apps_prompt['is_browser']:
-                    self.add_link(access_apps_data)
-
-            add_next_prompt = self.prompt_messages.add_next('app')
-            if add_next_prompt['next'] == False:
-                break
 
     def main(self):
         while True:
