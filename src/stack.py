@@ -1,11 +1,11 @@
 from models.access_pattern import Access_pattern
 from models.access_apps import Access_apps
 from models.access_links import Access_links
-from src.open_links import Open_links
 from src.prompt_messages import Prompt_messages
 from src.system_settings import System_settings
 from src.prints import Prints
 from src.apps import Apps
+from src.links import Links
 
 
 class Stack:
@@ -15,7 +15,7 @@ class Stack:
         self.access_links_model = Access_links
         self.access_patterns_model = Access_pattern
         self.open_apps = Apps().to_open_apps
-        self.open_links = Open_links
+        self.open_links = Links().to_open_links
         self.system_settings = System_settings
         self.back_to_menu = True
         self.prints = Prints

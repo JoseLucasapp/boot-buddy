@@ -1,10 +1,11 @@
 from models.access_pattern import Access_pattern
 from models.access_apps import Access_apps
 from models.access_links import Access_links
-from src.open_links import Open_links
 from src.prompt_messages import Prompt_messages
 from src.system_settings import System_settings
 from src.prints import Prints
+
+from src.links import Links
 
 
 class Apps:
@@ -13,10 +14,11 @@ class Apps:
         self.access_apps_model = Access_apps
         self.access_links_model = Access_links
         self.access_patterns_model = Access_pattern
-        self.open_links = Open_links
+        self.open_links = Links().to_open_links
         self.system_settings = System_settings
         self.back_to_menu = True
         self.prints = Prints
+        self.add_link = Links().add_link
 
     def add_apps(self, access_pattern_id):
         self.prints.app_path_hint()
