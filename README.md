@@ -77,6 +77,23 @@ When adding an application to the startup list, you will need to provide the pat
    ```
     This will output the path to the Chrome executable, such as /usr/bin/google-chrome.
 
+
+### Running on boot (Linux):
+Create an autostart folder, and create the boot-buddy.desktop inside.
+
+```
+nano ~/.config/autostart/boot-buddy.desktop
+```
+
+```
+[Desktop Entry]
+Type=Application
+Terminal=true
+Exec=gnome-terminal -- bash -c '/usr/bin/python3 path_to_boot_buddy/boot-buddy/__init__.py; exec bash'
+Name=Boot Buddy
+
+```
+
 ## Contributing
 
 Contributions are welcome! If you'd like to contribute, please follow these steps:
